@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list *ngIf="isAuthenticated" >
+      <a *ngFor="let item of authenticatedMenuItems" mat-list-item [routerLink]="'/'+item.title"> 
+        <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
+        {{item.title | titlecase}} </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a *ngFor="let item of unAuthenticatedMenuItems" mat-list-item [routerLink]="'/'+item.title">
+        <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
+        {{item.title | titlecase}} </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{title}}</span>
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="!isAuthenticated">
+        <a mat-button routerLink="signin" routerLinkActive="active">Signin
+          <mat-icon matSuffix>power_settings_new</mat-icon>
+        </a>
+        <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup
+          <mat-icon matSuffix>person_add</mat-icon>
+        </a>
+      </span>
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="isAuthenticated">
+        <a mat-button (click)="logout()" routerLinkActive="active">Logout
+          <mat-icon matSuffix>exit_to_app</mat-icon>
+        </a>
+      </span>
+      
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

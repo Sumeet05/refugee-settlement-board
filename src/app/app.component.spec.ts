@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'store-admin-panel'`, () => {
+  it(`should have as title 'refugee-settlement-board'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('store-admin-panel');
+    expect(app.title).toEqual('refugee-settlement-board');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('store-admin-panel app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('refugee-settlement-board app is running!');
   });
 });
