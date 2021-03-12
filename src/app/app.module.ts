@@ -17,6 +17,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
+import { TableComponent } from './admin/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import { HelpComponent } from './help/help.component';
     AdminComponent,
     AboutComponent,
     HelpComponent,
+    TableComponent,
   ],
   imports: [
     AngularMaterialModule,
@@ -38,8 +44,12 @@ import { HelpComponent } from './help/help.component';
     ChartsModule,
     FlexLayoutModule,
     FormsModule,
+    HttpClientModule,
     LayoutModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

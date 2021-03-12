@@ -20,7 +20,7 @@ export class AuthService {
   login(username: string, password: string): Observable<boolean> {
     return new Observable<boolean>((observer: Observer<boolean>) => {
       console.log(`username : ${username } password: ${password}`)
-      if (username === 'admin' && password === 'admin') {
+      if (username === 'admin' && password === 'hzx9uLuNmQ') {
         this.userDetail = { username };
         this.isAuthenticated.next(true);
         console.log(`username : ${username } password: ${password} : Pass`)

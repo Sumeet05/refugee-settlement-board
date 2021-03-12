@@ -1,0 +1,133 @@
+<div class="t-container mat-elevation-z8 small-table">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- familySize Column -->
+    <ng-container matColumnDef="familySize">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Family Size</th>
+      <td mat-cell *matCellDef="let row">{{row.familySize}}</td>
+    </ng-container>
+
+    <!-- dateOfArrival Column -->
+    <ng-container matColumnDef="dateOfArrival">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Of Arrival</th>
+      <td mat-cell *matCellDef="let row">{{row.dateOfArrival}}</td>
+    </ng-container>
+  
+    <!-- familyName Column -->
+    <ng-container matColumnDef="familyName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Family Name</th>
+      <td mat-cell *matCellDef="let row">{{row.familyName}}</td>
+    </ng-container>
+
+     <!-- firstName Column -->
+     <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+    </ng-container>
+
+     <!-- gender Column -->
+     <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+      <td mat-cell *matCellDef="let row">{{row.gender}}</td>
+    </ng-container>
+
+     <!-- dob Column -->
+     <ng-container matColumnDef="dob">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dob</th>
+      <td mat-cell *matCellDef="let row">{{row.dob}}</td>
+    </ng-container>
+
+     <!-- ages Column -->
+     <ng-container matColumnDef="ages">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ages</th>
+      <td mat-cell *matCellDef="let row">{{row.ages | number : '1.0-0'}}</td>
+    </ng-container>
+
+     <!-- cOO Column -->
+     <ng-container matColumnDef="cOO">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>COO</th>
+      <td mat-cell *matCellDef="let row">{{row.cOO}}</td>
+    </ng-container>
+
+     <!-- maritalStatus Column -->
+     <ng-container matColumnDef="maritalStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>MaritalStatus</th>
+      <td mat-cell *matCellDef="let row">{{row.maritalStatus}}</td>
+    </ng-container>
+
+     <!-- relationship Column -->
+     <ng-container matColumnDef="relationship">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Relationship</th>
+      <td mat-cell *matCellDef="let row">{{row.relationship}}</td>
+    </ng-container>
+
+     <!-- temporaryLocations Column -->
+     <ng-container matColumnDef="temporaryLocations">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Temporary Locations</th>
+      <td mat-cell *matCellDef="let row">{{row.temporaryLocations}}</td>
+    </ng-container>
+
+     <!-- room Column -->
+     <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Room</th>
+      <td mat-cell *matCellDef="let row">{{row.room}}</td>
+    </ng-container>
+
+     <!-- moveoutDate Column -->
+     <ng-container matColumnDef="moveoutDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Moveout Date</th>
+      <td mat-cell *matCellDef="let row">{{row.moveoutDate}}</td>
+    </ng-container>
+
+     <!-- age6AndUnder Column -->
+     <ng-container matColumnDef="age6AndUnder">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ages 6 and Under</th>
+      <td mat-cell *matCellDef="let row">{{row.age6AndUnder}}</td>
+    </ng-container>
+
+     <!-- employment Column -->
+     <ng-container matColumnDef="employment">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Employment</th>
+      <td mat-cell *matCellDef="let row">{{row.employment}}</td>
+    </ng-container>
+
+     <!-- yearsExp Column -->
+     <ng-container matColumnDef="yearsExp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Years Experience</th>
+      <td mat-cell *matCellDef="let row">{{row.yearsExp}}</td>
+    </ng-container>
+
+     <!-- sector Column -->
+     <ng-container matColumnDef="sector">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sector</th>
+      <td mat-cell *matCellDef="let row">{{row.sector}}</td>
+    </ng-container>
+
+     <!-- publicGR Column -->
+     <ng-container matColumnDef="publicGR">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Public (GR)</th>
+      <td mat-cell *matCellDef="let row">{{row.publicGR}}</td>
+    </ng-container>
+    
+    <!-- postSecondary Column -->
+    <ng-container matColumnDef="postSecondary">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Post Secondary</th>
+    <td mat-cell *matCellDef="let row">{{row.postSecondary}}</td>
+  </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10, 25, 50, 100, 250]">
+  </mat-paginator>
+</div>

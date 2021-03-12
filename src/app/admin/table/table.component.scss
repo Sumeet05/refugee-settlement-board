@@ -1,0 +1,20 @@
+.full-width-table {
+  width: 100%;
+}
+
+.small-table{
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  white-space: nowrap;
+  max-height: 500px
+}
+
+th.mat-header-cell {
+  text-align: left;
+}
+
+.t-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
