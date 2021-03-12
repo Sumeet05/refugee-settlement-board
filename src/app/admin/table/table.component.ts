@@ -52,9 +52,13 @@ export class TableComponent implements OnInit {
       console.log(`Error fetching demographics data : ${error}`)
     });
   }
-  
-  public doFilter = (value: string) => {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
+
+  doFilter(event: any) {
+    let value = event.target.value;
+    console.log(`value - filter ${value}`)
   }
 
+  resetFilters() {
+    
+  }
 }
