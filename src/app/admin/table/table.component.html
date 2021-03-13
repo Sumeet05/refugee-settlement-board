@@ -1,134 +1,684 @@
 <div class="t-container mat-elevation-z8 small-table">
-  <div>
-    <mat-form-field style="margin-left: 15px;">
-      <input matInput type="text" (keyup)="doFilter($event)" placeholder="Filter">
-      <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
-    </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <!-- <h3 class="mat-h3" style="margin: 0 15px;">Total Records fetched : {{dataSource?.data.length}}</h3> -->
+    <button mat-flat-button color="warn" style="max-width:min-content" (click)="resetAllFilters()">Reset All Filters</button>
   </div>
-
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- familySize Column -->
     <ng-container matColumnDef="familySize">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Family Size</th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Family Size</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.familySize">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.familySize">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('familySize')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.familySize}}</td>
     </ng-container>
 
     <!-- dateOfArrival Column -->
     <ng-container matColumnDef="dateOfArrival">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Of Arrival</th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Date Of Arrival</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.dateOfArrival">
+                <mat-option *ngFor="let  condition of dateConditionsList" [value]="condition.value">{{condition.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="searchValue.dateOfArrival">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('dateOfArrival')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.dateOfArrival}}</td>
     </ng-container>
-  
+
     <!-- familyName Column -->
     <ng-container matColumnDef="familyName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Family Name</th>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Family Name</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.familyName">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.familyName">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('familyName')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.familyName}}</td>
     </ng-container>
 
-     <!-- firstName Column -->
-     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+    <!-- firstName Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">First Name</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.firstName">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.firstName">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('firstName')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
     </ng-container>
 
-     <!-- gender Column -->
-     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+    <!-- gender Column -->
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Gender</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.gender">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.gender">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('gender')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.gender}}</td>
     </ng-container>
 
-     <!-- dob Column -->
-     <ng-container matColumnDef="dob">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dob</th>
+    <!-- dob Column -->
+    <ng-container matColumnDef="dob">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Dob</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions' [(value)]="searchCondition.dob">
+                <mat-option *ngFor="let  condition of dateConditionsList" [value]="condition.value">{{condition.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="searchValue.dob">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('dob')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.dob}}</td>
     </ng-container>
 
-     <!-- ages Column -->
-     <ng-container matColumnDef="ages">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ages</th>
+    <!-- ages Column -->
+    <ng-container matColumnDef="ages">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Ages</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions' [(value)]="searchCondition.ages">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.ages">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('ages')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.ages | number : '1.0-0'}}</td>
     </ng-container>
 
-     <!-- cOO Column -->
-     <ng-container matColumnDef="cOO">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>COO</th>
+    <!-- cOO Column -->
+    <ng-container matColumnDef="cOO">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">COO</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions' [(value)]="searchCondition.cOO">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.cOO">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('cOO')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.cOO}}</td>
     </ng-container>
 
-     <!-- maritalStatus Column -->
-     <ng-container matColumnDef="maritalStatus">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>MaritalStatus</th>
+    <!-- maritalStatus Column -->
+    <ng-container matColumnDef="maritalStatus">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">MaritalStatus</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.maritalStatus">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.maritalStatus">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('maritalStatus')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.maritalStatus}}</td>
     </ng-container>
 
-     <!-- relationship Column -->
-     <ng-container matColumnDef="relationship">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Relationship</th>
+    <!-- relationship Column -->
+    <ng-container matColumnDef="relationship">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Relationship</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.relationship">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.relationship">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('relationship')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.relationship}}</td>
     </ng-container>
 
-     <!-- temporaryLocations Column -->
-     <ng-container matColumnDef="temporaryLocations">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Temporary Locations</th>
+    <!-- temporaryLocations Column -->
+    <ng-container matColumnDef="temporaryLocations">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Temporary Locations</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.temporaryLocations">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.temporaryLocations">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('temporaryLocations')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.temporaryLocations}}</td>
     </ng-container>
 
-     <!-- room Column -->
-     <ng-container matColumnDef="room">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Room</th>
+    <!-- room Column -->
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Room</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions' [(value)]="searchCondition.room">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.room">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('room')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.room}}</td>
     </ng-container>
 
-     <!-- moveoutDate Column -->
-     <ng-container matColumnDef="moveoutDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Moveout Date</th>
+    <!-- moveoutDate Column -->
+    <ng-container matColumnDef="moveoutDate">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Moveout Date</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.moveoutDate">
+                <mat-option *ngFor="let  condition of dateConditionsList" [value]="condition.value">{{condition.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="searchValue.moveoutDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('moveoutDate')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.moveoutDate}}</td>
     </ng-container>
 
-     <!-- age6AndUnder Column -->
-     <ng-container matColumnDef="age6AndUnder">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ages 6 and Under</th>
+    <!-- age6AndUnder Column -->
+    <ng-container matColumnDef="age6AndUnder">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Ages 6 and Under</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.age6AndUnder">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.age6AndUnder">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('age6AndUnder')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.age6AndUnder}}</td>
     </ng-container>
 
-     <!-- employment Column -->
-     <ng-container matColumnDef="employment">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Employment</th>
+    <!-- employment Column -->
+    <ng-container matColumnDef="employment">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Employment</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.employment">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.employment">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('employment')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.employment}}</td>
     </ng-container>
 
-     <!-- yearsExp Column -->
-     <ng-container matColumnDef="yearsExp">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Years Experience</th>
+    <!-- yearsExp Column -->
+    <ng-container matColumnDef="yearsExp">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Years Experience</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.yearsExp">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.yearsExp">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('yearsExp')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.yearsExp}}</td>
     </ng-container>
 
-     <!-- sector Column -->
-     <ng-container matColumnDef="sector">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sector</th>
+    <!-- sector Column -->
+    <ng-container matColumnDef="sector">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Sector</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.sector">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.sector">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('sector')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.sector}}</td>
     </ng-container>
 
-     <!-- publicGR Column -->
-     <ng-container matColumnDef="publicGR">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Public (GR)</th>
+    <!-- publicGR Column -->
+    <ng-container matColumnDef="publicGR">
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Public (GR)</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.publicGR">
+                <mat-option *ngFor="let  condition of numberConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.publicGR">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('publicGR')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
       <td mat-cell *matCellDef="let row">{{row.publicGR}}</td>
     </ng-container>
-    
+
     <!-- postSecondary Column -->
     <ng-container matColumnDef="postSecondary">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Post Secondary</th>
-    <td mat-cell *matCellDef="let row">{{row.postSecondary}}</td>
-  </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout>
+          <div mat-sort-header style="padding-top: 0.5rem;">Post Secondary</div>
+          <button mat-flat-button class="btn-toggle" [matMenuTriggerFor]="menu">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu>
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Conditions'
+                [(value)]="searchCondition.postSecondary">
+                <mat-option *ngFor="let  condition of stringConditionsList" [value]="condition.value">
+                  {{condition.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true">
+            <mat-form-field>
+              <input matInput placeholder="Value" [(ngModel)]="searchValue.postSecondary">
+            </mat-form-field>
+          </div>
+
+          <div mat-menu-item mat-filter-item [disableRipple]="true" fxLayout="row" fxLayoutGap="20px">
+            <button mat-flat-button (click)="clearColumn('postSecondary')">Clear</button>
+            <button mat-flat-button color="primary" (click)="applyFilter()">Search</button>
+          </div>
+        </mat-menu>
+      </th>
+      <td mat-cell *matCellDef="let row">{{row.postSecondary}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator #paginator
-      [length]="dataSource?.data.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[10, 25, 50, 100, 250]">
+  <mat-paginator #paginator [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[10, 25, 50, 100, 250]">
   </mat-paginator>
 </div>

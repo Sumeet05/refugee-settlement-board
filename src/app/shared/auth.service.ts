@@ -13,8 +13,14 @@ export class AuthService {
   }
 
   checkAuthenticated() {
-    this.isAuthenticated.next(this.userDetail !== undefined);
-    return this.userDetail !== undefined;
+    let authUser = localStorage.getItem('auth-user');
+    if (authUser && authUser !== null) {
+      this.userDetail = JSON.parse(authUser);
+    }
+    let flag = this.userDetail !== undefined;
+    console.log(`this.userDetai ${this.userDetail}  - flag ${flag}`)
+    this.isAuthenticated.next(flag);
+    return flag;
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -24,7 +30,7 @@ export class AuthService {
         this.userDetail = { username };
         this.isAuthenticated.next(true);
         console.log(`username : ${username } password: ${password} : Pass`)
-
+        localStorage.setItem('auth-user', JSON.stringify(this.userDetail));
         observer.next(true);
       } else {
       console.log(`username : ${username } password: ${password}: fail`)
@@ -36,6 +42,7 @@ export class AuthService {
 
   logout(redirectTo?: string) {
     this.userDetail = undefined;
+    localStorage.removeItem('auth-user');
     this.isAuthenticated.next(false);
     this.router.navigate([redirectTo !== undefined ? redirectTo: '/' ]);
   }

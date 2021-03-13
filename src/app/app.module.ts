@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterItemDirective } from './admin/table/filter-item-directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     AboutComponent,
     HelpComponent,
     TableComponent,
+    FilterItemDirective
   ],
   imports: [
     AngularMaterialModule,
