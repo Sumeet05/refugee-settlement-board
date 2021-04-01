@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
 import { AdminComponent } from './admin/admin.component';
 import { DashComponent } from './dash/dash.component';
 import { AuthGuardService } from './guards/authguard.service';
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashComponent , canActivate: [AuthGuardService]},
   { path: 'admin', component: AdminComponent , canActivate: [AuthGuardService]},
-  { path: 'about', component: AboutComponent},
   { path: 'help', component: HelpComponent},
 ];
 

@@ -15,7 +15,6 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
-import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
 import { TableComponent } from './admin/table/table.component';
 import { MatTableModule } from '@angular/material/table';
@@ -23,6 +22,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterItemDirective } from './admin/table/filter-item-directive';
+import { MiniCardComponent } from './mini-card/mini-card.component';
+import { GenderChartComponent } from './charts/gender-chart/gender-chart.component';
+import { DoaChartComponent } from './charts/doa-chart/doa-chart.component';
+import { CooChartComponent } from './charts/coo-chart/coo-chart.component';
+import { EmpEduChartComponent } from './charts/emp-edu-chart/emp-edu-chart.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +37,14 @@ import { FilterItemDirective } from './admin/table/filter-item-directive';
     SigninComponent,
     RegisterComponent,
     AdminComponent,
-    AboutComponent,
     HelpComponent,
     TableComponent,
-    FilterItemDirective
+    FilterItemDirective,
+    MiniCardComponent,
+    GenderChartComponent,
+    DoaChartComponent,
+    CooChartComponent,
+    EmpEduChartComponent
   ],
   imports: [
     AngularMaterialModule,

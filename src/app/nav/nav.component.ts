@@ -12,7 +12,7 @@ import { AuthService } from '@shared/auth.service';
 export class NavComponent {
   title = 'Refugee Settlement Board'
   authenticatedMenuItems = [{title:'dashboard', icon: 'dashboard'}, {title:'admin', icon:'account_box'} ];
-  unAuthenticatedMenuItems = [{title: 'about', icon: 'info'}, {title: 'help', icon: 'help'}]
+  unAuthenticatedMenuItems = [{title: 'help', icon: 'help'}]
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

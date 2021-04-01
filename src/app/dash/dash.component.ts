@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { TableDataSummary } from '@app/shared/table.model';
+import { TableDataService } from '@app/shared/table-data.service';
 
 @Component({
   selector: 'app-dash',
@@ -29,5 +31,18 @@ export class DashComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  miniCardData: TableDataSummary[];
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private tableDataService: TableDataService
+  ) {
+
+    this.tableDataService.getDemographicsDataSummary().subscribe({
+      next: tableData => {
+        this.miniCardData = tableData;
+      }
+    });
+
+  }
 }

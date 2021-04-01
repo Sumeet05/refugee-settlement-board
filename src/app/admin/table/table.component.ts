@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { TableItem } from '@app/admin/table.model';
-import { TableDataService } from '../table-data.service';
+import { TableItem } from '@app/shared/table.model';
+import { TableDataService } from '@shared/table-data.service';
 import { CONDITIONS_FUNCTIONS, DATE_CONDITIONS_LIST, NUM_CONDITIONS_LIST, STRING_CONDITIONS_LIST } from '@shared/conditions-utils';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-table',
@@ -45,18 +46,23 @@ export class TableComponent implements OnInit {
     'postSecondary',
   ];
 
+  @ViewChild(MatMenuTrigger) triggerBtn: MatMenuTrigger;
+
   constructor(private tableDataService: TableDataService) { }
 
   ngOnInit() {
-    this.tableDataService.getDemographicsData().subscribe((data: TableItem[]) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.table.dataSource = this.dataSource;
-
-      this.dataSource.filterPredicate = this.filterPredicate;
-    }, (error) => {
-      console.log(`Error fetching demographics data : ${error}`)
+    this.tableDataService.getDemographicsData().subscribe({
+      next: data => {
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.table.dataSource = this.dataSource;
+    
+          this.dataSource.filterPredicate = this.filterPredicate;
+      },
+      error: err => {
+          console.log(`Error fetching demographics data : ${err}`)
+      }
     });
   }
 
@@ -85,7 +91,9 @@ export class TableComponent implements OnInit {
     };
 
     this.dataSource.filter = searchFilter;
+    this.triggerBtn.closeMenu();
   }
+
   clearColumn(columnKey: string) {
     this.searchValue[columnKey] = null;
     this.searchCondition[columnKey] = "none";

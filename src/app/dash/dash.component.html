@@ -3,23 +3,29 @@
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
     <!--Mini Cards-->
-    <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
+    <mat-grid-tile *ngFor="let mc of miniCardData" [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
-      <app-card title="Card {{i}}">
-        <div>Mini Card Content Here</div>
-      </app-card>
+      <app-mini-card [title]="mc.title" [value]="mc.value" [color]="mc.color" [icon]="mc.icon"></app-mini-card>
     </mat-grid-tile>
     <!--Charts-->
-    <mat-grid-tile *ngFor="let i of [5, 6, 7, 8]" [colspan]="( cardLayout | async )?.chart?.cols"
-      [rowspan]="( cardLayout | async )?.chart?.rows">
-      <app-card title="Card {{i}}">
-        <div>Chart Content Here</div>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Date of Arrival vs Move Out Date">
+        <app-doa-chart></app-doa-chart>
       </app-card>
     </mat-grid-tile>
-    <!--Table-->
-    <mat-grid-tile [colspan]="( cardLayout | async )?.table?.cols" [rowspan]="( cardLayout | async )?.table?.rows">
-      <app-card title="Card 9">
-        <div>Table Content Here</div>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Country of Origin">
+        <app-coo-chart></app-coo-chart>
+      </app-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Gender">
+        <app-gender-chart></app-gender-chart>
+      </app-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart.cols" [rowspan]="( cardLayout | async )?.chart.rows">
+      <app-card title="Employment">
+        <app-emp-edu-chart></app-emp-edu-chart>
       </app-card>
     </mat-grid-tile>
   </mat-grid-list>
