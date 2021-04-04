@@ -1,1 +1,57 @@
-<p>help works!</p>
+<div class="main-wrapper">
+  <div class="container">
+    <h1 class="title">Help!</h1>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="container">
+      <p>Every year, Canada accepts approximately 300,000 newcomers across a wide range of categories, such as qualified
+        professionals, students, and importantly, refugees – people who have had to leave their homes and lives for
+        extraneous reasons, like armed conflict or environmental disaster.</p>
+
+      <p>Around Canada, there is a network of federally-funded refugee settlement agencies that specialize in the
+        acceptance and integration of refugees into Canadian society, and this project focuses on one subset of that
+        process: namely, the first six-weeks that a group of refugees will spend in Canada, and the need to gain a good
+        perspective on both the execution of the program and the demographic analysis of this group of people.
+      </p>
+    </div>
+  </div>
+  
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="container">
+      <mat-card class="box">
+        <mat-card-content>
+          <h2>Our Team</h2>
+          <ul>
+            <li><strong>Sumeet Vishwakarma</strong> - 0953504 (32)</li>
+            <li><strong>Niharika Goyal</strong> - 0962932 (32)</li>
+            <li><strong>Sugam Sharma</strong> - 0946548 (32)</li>
+            <li><strong>Gunjan Goyal</strong> - 0963884 (31)</li>
+            <li><strong>Rajwinder Kaur</strong> - 0953377 (31)</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="container" fxLayout="row">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>We'd like to hear from you !!!</mat-card-title>
+      </mat-card-header>
+
+      <form class="basic-form" [formGroup]="contactUs" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email" required>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Feedback</mat-label>
+            <textarea matInput placeholder="Feedback" formControlName="feedback" rows="4" required> </textarea>
+          </mat-form-field>
+        </mat-card-content>
+        <button mat-stroked-button color="primary" class="btn-block">Submit</button>
+      </form>
+    </mat-card>
+  </div>
+</div>

@@ -8,15 +8,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  // User: any = ['Admin', 'user'];
-
   register: FormGroup = new FormGroup({
+    firstname: new FormControl('', [Validators.required]),
+    lastname: new FormControl('', [Validators.required]),
+    dateOfBirth: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.min(5)]),
-    email: new FormControl('', [Validators.required, Validators.email])
   });
   hide = true;
+
   get usernameInput() { return this.register.get('username'); }
+  get firstnameInput() { return this.register.get('firstname'); }
+  get lastnameInput() { return this.register.get('lastname'); }
+  get dateOfBirthInput() { return this.register.get('dateOfBirth'); }
   get passwordInput() { return this.register.get('password'); }
   get emailInput() { return this.register.get('email'); }
 
@@ -26,4 +31,7 @@ export class RegisterComponent implements OnInit {
     
   }
 
+  onSubmit() {
+    
+  }
 }

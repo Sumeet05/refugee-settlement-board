@@ -3,24 +3,25 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Observer, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TableDataSummary, TableItem } from '@app/shared/table.model';
+import { environment } from 'environments/environment';
+import { AppSettings } from './app-settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableDataService {
-  private dataUrl = 'assets/data.json';
+  private dataUrl = environment.dataUrl;
   private tableDataSumary: TableDataSummary[];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
 
-  }
-
-  fetchDemographicsData(): Observable<TableItem[]> {
-    return this.http.get<TableItem[]>(this.dataUrl).pipe(catchError(this.handleError));
+  fetchDemographicsData(url: string): Observable<TableItem[]> {
+    return this.http.get<TableItem[]>(url).pipe(catchError(this.handleError));
   }
 
   getDemographicsData(): Observable<TableItem[]> {
-    return this.http.get<TableItem[]>(this.dataUrl).pipe(catchError(this.handleError));
+    const url = environment.production ? `${environment.appUrl}${AppSettings.DEMOGRAPHICS_URL}`: environment.dataUrl;
+    return this.fetchDemographicsData(url);
   }
 
   private handleError(err: HttpErrorResponse) {

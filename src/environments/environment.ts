@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  dataUrl: 'assets/data.json',
+  appUrl: 'http://localhost:8080'
 };
 
 /*

@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
         this.loginInvalid = false;
         this.router.navigate([this.returnUrl]);
       }, (error: any) => {
-        console.log(`login failed`)
+        console.log(`login failed: ${error}`)
         this.loginInvalid = true;
       })
     }

@@ -20,7 +20,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>{{title}}</span>
-      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="!isAuthenticated">
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="!isAuthenticated && !(isHandset$ | async)">
         <a mat-button routerLink="signin" routerLinkActive="active">Signin
           <mat-icon matSuffix>power_settings_new</mat-icon>
         </a>
@@ -28,8 +28,23 @@
           <mat-icon matSuffix>person_add</mat-icon>
         </a>
       </span>
-      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="isAuthenticated">
+
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="!isAuthenticated && (isHandset$ | async)">
+        <a mat-button routerLink="signin" routerLinkActive="active">
+          <mat-icon matSuffix>power_settings_new</mat-icon>
+        </a>
+        <a mat-button routerLink="register" routerLinkActive="active">
+          <mat-icon matSuffix>person_add</mat-icon>
+        </a>
+      </span>
+      
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="isAuthenticated && !(isHandset$ | async)">
         <a mat-button (click)="logout()" routerLinkActive="active">Logout
+          <mat-icon matSuffix>exit_to_app</mat-icon>
+        </a>
+      </span>
+      <span class="nav-tool-items" fxFlex fxLayoutAlign="flex-end center" *ngIf="isAuthenticated && (isHandset$ | async)">
+        <a mat-button (click)="logout()" routerLinkActive="active">
           <mat-icon matSuffix>exit_to_app</mat-icon>
         </a>
       </span>

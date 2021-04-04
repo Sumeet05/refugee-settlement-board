@@ -109,15 +109,15 @@ body {
 	padding: 0.8375em 0;
 }
 
-.chartContainer canvas {
-  max-height: 250px;
-  width: auto;
-}
-
 .chartContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+	canvas {
+		max-height: 250px;
+		width: auto;
+	}
 }

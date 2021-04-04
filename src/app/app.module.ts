@@ -20,13 +20,14 @@ import { TableComponent } from './admin/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FilterItemDirective } from './admin/table/filter-item-directive';
 import { MiniCardComponent } from './mini-card/mini-card.component';
 import { GenderChartComponent } from './charts/gender-chart/gender-chart.component';
 import { DoaChartComponent } from './charts/doa-chart/doa-chart.component';
 import { CooChartComponent } from './charts/coo-chart/coo-chart.component';
 import { EmpEduChartComponent } from './charts/emp-edu-chart/emp-edu-chart.component';
+import { AuthInterceptorService } from './shared/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,9 @@ import { EmpEduChartComponent } from './charts/emp-edu-chart/emp-edu-chart.compo
     MatPaginatorModule,
     MatSortModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
