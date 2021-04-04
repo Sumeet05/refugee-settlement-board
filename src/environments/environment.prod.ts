@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  dataUrl: 'assets/data.json',
+  appUrl: 'http://localhost:8080'
 };

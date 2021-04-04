@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { AuthenticationResponse } from './authentication-response.model';
 import { AppSettings } from '@shared/app-settings';
 import { environment } from 'environments/environment';
+import { Base64 } from 'js-base64';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import { environment } from 'environments/environment';
 export class AuthService {
   public isAuthenticated = new BehaviorSubject<boolean>(false);
   private userDetail: any;
-  private authCredentials: string = `cmVmdWdlZS1ib2FyZC1jbGllbnQ6c2VjcmV0`;
+  private authCredentials: string = Base64.encode(`refugee-board-client:secret`);
 
   constructor(
     private router: Router,
@@ -78,7 +79,7 @@ export class AuthService {
       );
     } else {
       return new Observable((observer: Observer<AuthenticationResponse>) => {
-        if (username==='admin' && password==='hzx9uLuNmQ') {
+        if (username==='admin' && password==='admin') {
           observer.next(new AuthenticationResponse('dev_access_token', 'dev_refresh_token'));
         } else {
           console.log(`Failed to login username and password not match`);

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --disable-host-check",
+    "start": "ng serve",
+    "prod": "ng serve --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^11.2.5",
     "@angular/router": "^11.2.5",
     "chart.js": "^2.9.4",
+    "js-base64": "^3.6.0",
     "ng2-charts": "^2.4.2",
     "ngx-bootstrap": "^6.2.0",
     "rxjs": "~6.6.0",
