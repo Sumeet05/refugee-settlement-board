@@ -24,6 +24,9 @@ export class TableDataService {
     return this.fetchDemographicsData(url);
   }
 
+  loadDemographics(): Observable<TableItem[]> {
+    return this.http.get<TableItem[]>(`${environment.appUrl}${AppSettings.LOAD_DEMOGRAPHICS_URL}`).pipe(catchError(this.handleError));
+  }
   private handleError(err: HttpErrorResponse) {
     return throwError(`An error occurred: ${err}`);
   }
