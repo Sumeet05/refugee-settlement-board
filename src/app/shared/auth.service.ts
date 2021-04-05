@@ -7,6 +7,7 @@ import { AuthenticationResponse } from './authentication-response.model';
 import { AppSettings } from '@shared/app-settings';
 import { environment } from 'environments/environment';
 import { Base64 } from 'js-base64';
+import { TableDataService } from './table-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
+    private tableDataService: TableDataService
   ) { }
 
   get userdetail() {
@@ -43,6 +45,16 @@ export class AuthService {
             this.userDetail = { username, access_token: authenticationResponse.access_token, refresh_token: authenticationResponse.refresh_token };
             this.isAuthenticated.next(true);
             sessionStorage.setItem('auth-user', JSON.stringify(this.userDetail));
+
+            if (environment.production) {
+              this.tableDataService.getDemographicsData().subscribe({
+                next: data => {
+                  if (data === null || data.length <=0) {
+                    this.tableDataService.loadDemographics().subscribe();
+                  }
+                }
+              })
+            }
             observer.next(true);
           } else {
             observer.error(false);

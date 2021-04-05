@@ -12,9 +12,6 @@ export class AdminComponent implements OnInit {
   constructor(private tableDataService: TableDataService) { }
 
   ngOnInit(): void {
-    if (environment.production) {
-      this.tableDataService.loadDemographics().subscribe();
-    }
   }
 
 }
